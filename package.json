@@ -1,6 +1,6 @@
 {
   "name": "axcache",
-  "version": "1.0.24",
+  "version": "1.1.0",
   "description": "A caching wrapper for axios with TTL and advanced caching strategies",
   "main": "./dist/axcache.cjs.js",
   "module": "./dist/axcache.esm.js",
