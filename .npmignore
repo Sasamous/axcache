@@ -1,0 +1,27 @@
+# Tests
+tests/
+coverage/
+*.test.js
+*.spec.js
+*.e2e.test.js
+
+# Config files
+.prettierrc
+.prettierignore
+.babelrc
+eslint.config.js
+jest.config.js
+
+# GitHub
+.github/
+.gitignore
+
+# Development
+node_modules/
+*.log
+.DS_Store
+*.tgz
+
+# IDE
+.idea/
+.vscode/

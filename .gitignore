@@ -1,2 +1,24 @@
+# Dependencies
 node_modules/
+
+# Testing
 coverage/
+
+# Build
+dist/
+*.tgz
+lib/cjs
+lib/esm
+lib/types
+
+# OS
+.DS_Store
+*.log
+
+# IDE
+.idea/
+.vscode/
+
+# Environment
+.env
+.env.*

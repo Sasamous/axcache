@@ -1,5 +1,5 @@
-import { CacheWithTTL } from '../../lib/cache/CacheWithTTL';
-import { afterEach } from '@jest/globals';
+import { jest } from '@jest/globals';
+import { CacheWithTTL } from '../../lib/cache/CacheWithTTL.js';
 
 describe('CacheWithTTL', () => {
   let cache;

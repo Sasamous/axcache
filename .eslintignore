@@ -1,0 +1,6 @@
+node_modules/
+dist/
+coverage/
+lib/cjs/
+lib/esm/
+*.config.js 

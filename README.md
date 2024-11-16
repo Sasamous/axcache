@@ -1,5 +1,6 @@
 # axcache
 
+![CI](https://github.com/Sasamous/axcache/workflows/CI/badge.svg)
 ![License](https://img.shields.io/npm/l/axcache)
 ![Version](https://img.shields.io/npm/v/axcache)
 ![Downloads](https://img.shields.io/npm/dt/axcache)
@@ -38,6 +39,23 @@ const response = await axcache.get('https://api.example.com/data');
 const cachedResponse = await axcache.get('https://api.example.com/data');
 ```
 
+
+## Troubleshooting
+
+### ESM/CommonJS Issues
+If you're experiencing import issues:
+
+1. For ESM projects:
+```javascript
+import createAxcache from 'axcache';
+```
+
+2. For CommonJS projects:
+
+```javascript
+const createAxcache = require('axcache');
+```
+
 ## Advanced Configuration
 
 ```javascript
@@ -58,7 +76,7 @@ const axcache = createAxcache({
   },
   validateStatus: (status) => status < 500,
 });
-```
+````
 
 ## Configuration Options
 
@@ -281,6 +299,7 @@ api.invalidateCache('/users', { role: 'admin' });
 ## Acknowledgments
 
 This project uses the following major dependencies:
+
 - [Axios](https://github.com/axios/axios) - Licensed under MIT
 
 ## License

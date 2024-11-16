@@ -1,5 +1,5 @@
 import createAxcache from '../../lib/axcache.js';
-import { fail } from '@jest/globals';
+import { jest, expect, describe, it, beforeEach } from '@jest/globals';
 
 describe('axcache E2E Tests', () => {
   let axcache;

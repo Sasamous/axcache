@@ -1,43 +1,52 @@
 {
   "name": "axcache",
-  "version": "1.0.0",
-  "main": "lib/axcache.js",
-  "type": "module",
-  "jest": {
-    "transform": {
-      "^.+\\.js$": "babel-jest"
-    },
-    "testEnvironment": "node",
-    "moduleNameMapper": {
-      "^(\\.{1,2}/.*)\\.js$": "$1"
-    },
-    "collectCoverage": true,
-    "coverageReporters": [
-      "text",
-      "lcov"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 100,
-        "functions": 100,
-        "lines": 100,
-        "statements": 100
-      }
+  "version": "1.0.24",
+  "description": "A caching wrapper for axios with TTL and advanced caching strategies",
+  "main": "./dist/axcache.cjs.js",
+  "module": "./dist/axcache.esm.js",
+  "types": "dist/axcache.d.ts",
+  "unpkg": "dist/axcache.min.js",
+  "jsdelivr": "dist/axcache.min.js",
+  "browser": {
+    "./dist/axcache.esm.js": "./dist/axcache.browser.esm.js"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/axcache.esm.js",
+      "require": "./dist/axcache.cjs.js",
+      "types": "./dist/axcache.d.ts"
     }
   },
-  "directories": {
-    "lib": "lib",
-    "test": "tests"
-  },
   "scripts": {
-    "test": "jest",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "format": "prettier --write ."
+    "lint": "eslint 'lib/*.js' 'lib/utils/*.js' 'lib/cache/*.js' 'tests/**/*.js' --config .eslintrc.cjs",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest --config jest.config.cjs",
+    "build": "npm run clean && rollup -c rollup.config.cjs",
+    "clean": "rimraf dist",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run test && npm run lint",
+    "lint:fix": "eslint 'lib/*.js' 'lib/utils/*.js' 'lib/cache/*.js' 'tests/**/*.js' --config .eslintrc.cjs --fix"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Sasamous/axcache.git"
+  "files": [
+    "dist",
+    "lib",
+    "LICENSE",
+    "README.md"
+  ],
+  "dependencies": {
+    "axios": "^1.7.7"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "@babel/core": "^7.24.0",
+    "@babel/preset-env": "^7.24.0",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0",
+    "rimraf": "^5.0.5",
+    "rollup": "^4.12.0"
   },
   "keywords": [
     "axios",
@@ -48,19 +57,5 @@
   ],
   "author": "Salvatore Criniti",
   "license": "ISC",
-  "description": "A caching wrapper for axios with TTL and advanced caching strategies.",
-  "dependencies": {
-    "axios": "^1.7.7"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.26.0",
-    "@babel/preset-env": "^7.26.0",
-    "babel-jest": "^29.7.0",
-    "eslint": "^9.15.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-jest": "^28.9.0",
-    "eslint-plugin-prettier": "^5.2.1",
-    "jest": "^29.7.0",
-    "prettier": "^3.3.3"
-  }
+  "type": "module"
 }
