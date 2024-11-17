@@ -1,6 +1,6 @@
 {
   "name": "axcache",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "A caching wrapper for axios with TTL and advanced caching strategies",
   "main": "./dist/axcache.cjs.js",
   "module": "./dist/axcache.esm.js",
@@ -19,7 +19,7 @@
   },
   "scripts": {
     "lint": "eslint 'lib/*.js' 'lib/utils/*.js' 'lib/cache/*.js' 'tests/**/*.js' --config .eslintrc.cjs",
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest --config jest.config.cjs",
+    "test": "NODE_OPTIONS= jest --config jest.config.cjs",
     "build": "npm run clean && rollup -c rollup.config.cjs",
     "clean": "rimraf dist",
     "prepare": "npm run build",
