@@ -1,1 +1,2 @@
-module.exports = require('./dist/cjs/axcache.js');
+export { default } from './dist/axcache.esm.js';
+export * from './dist/axcache.esm.js';

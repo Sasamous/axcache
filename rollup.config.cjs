@@ -1,12 +1,13 @@
 const babel = require('@rollup/plugin-babel');
 const resolve = require('@rollup/plugin-node-resolve');
 const commonjs = require('@rollup/plugin-commonjs');
+const { dts } = require('rollup-plugin-dts');
 const { readFileSync } = require('fs');
 
 const pkg = JSON.parse(readFileSync('./package.json'));
 
 const input = 'lib/axcache.js';
-const extensions = ['.js'];
+const extensions = ['.js', '.ts'];
 
 const banner = `/*!
  * axcache v${pkg.version}
@@ -19,13 +20,13 @@ module.exports = [
     input,
     output: [
       {
-        file: 'dist/axcache.cjs.js',
+        file: './dist/axcache.cjs.js',
         format: 'cjs',
         banner,
         exports: 'named'
       },
       {
-        file: 'dist/axcache.esm.js',
+        file: './dist/axcache.esm.js',
         format: 'es',
         banner,
         exports: 'named'
@@ -47,7 +48,7 @@ module.exports = [
   {
     input,
     output: {
-      file: 'dist/axcache.browser.esm.js',
+      file: './dist/axcache.browser.esm.js',
       format: 'es',
       banner,
       exports: 'named'
@@ -64,5 +65,13 @@ module.exports = [
       })
     ],
     external: ['axios']
+  },
+  {
+    input: './lib/types/index.d.ts',
+    output: {
+      file: './dist/types/index.d.ts',
+      format: 'es'
+    },
+    plugins: [dts()]
   }
 ];

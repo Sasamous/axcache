@@ -4,13 +4,22 @@
     "module": "esnext",
     "lib": ["es2015", "dom"],
     "declaration": true,
-    "outDir": "dist",
+    "emitDeclarationOnly": true,
+    "outDir": "./dist/types",
     "strict": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "declarationDir": "./dist/types"
   },
-  "include": ["lib"],
-  "exclude": ["node_modules", "dist", "test"]
+  "include": [
+    "lib",
+    "lib/types"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "test"
+  ]
 } 
