@@ -14,7 +14,7 @@ describe('axcache E2E Tests', () => {
 
     axcache = createAxcache({
       stdTTL: 2,
-      maxSizeMB: 1,
+      maxSizeMB: 10,
       onCacheHit,
       onCacheMiss,
       onCacheWrite,

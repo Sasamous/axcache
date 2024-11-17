@@ -1,7 +1,6 @@
 const babel = require('@rollup/plugin-babel');
 const resolve = require('@rollup/plugin-node-resolve');
 const commonjs = require('@rollup/plugin-commonjs');
-const terser = require('@rollup/plugin-terser');
 const { readFileSync } = require('fs');
 
 const pkg = JSON.parse(readFileSync('./package.json'));
@@ -43,6 +42,27 @@ module.exports = [
         exclude: 'node_modules/**'
       })
     ],
-    external: ['axios', 'crypto']
+    external: ['axios']
+  },
+  {
+    input,
+    output: {
+      file: 'dist/axcache.browser.esm.js',
+      format: 'es',
+      banner,
+      exports: 'named'
+    },
+    plugins: [
+      resolve({
+        extensions,
+        browser: true
+      }),
+      commonjs(),
+      babel({
+        babelHelpers: 'bundled',
+        exclude: 'node_modules/**'
+      })
+    ],
+    external: ['axios']
   }
 ];

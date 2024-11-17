@@ -101,7 +101,7 @@ describe('axcache Unit Tests', () => {
       const key1 = axcache.generateCacheKey(config);
       expect(key1).toBeDefined();
       expect(typeof key1).toBe('string');
-      expect(key1).toHaveLength(64);
+      expect(key1).toHaveLength(32);
     });
 
     it('should properly handle cache invalidation', async () => {
