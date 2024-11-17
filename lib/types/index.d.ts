@@ -3,7 +3,6 @@ import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 export interface AxcacheOptions extends AxiosRequestConfig {
   stdTTL?: number;
   maxSizeMB?: number;
-  axios?: AxiosInstance;
   onCacheHit?: (key: string) => void;
   onCacheMiss?: (key: string) => void;
   onCacheWrite?: (key: string) => void;
