@@ -1,6 +1,6 @@
 import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
-export interface AxcacheOptions {
+export interface AxcacheOptions extends AxiosRequestConfig {
   stdTTL?: number;
   maxSizeMB?: number;
   axios?: AxiosInstance;
