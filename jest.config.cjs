@@ -1,18 +1,18 @@
 module.exports = {
+  preset: 'ts-jest',
   transform: {
-    '^.+\\.js$': ['babel-jest', { configFile: './babel.config.cjs' }]
+    '^.+\\.tsx?$': 'ts-jest',
+    '^.+\\.js$': ['babel-jest', { configFile: './babel.config.cjs' }],
   },
   testEnvironment: 'node',
-  moduleFileExtensions: ['js'],
-  testMatch: ['**/tests/**/*.test.js'],
-  transformIgnorePatterns: [
-    'node_modules/(?!(axios)/)'
-  ],
+  moduleFileExtensions: ['js', 'ts'],
+  testMatch: ['**/tests/**/*.test.(ts|js)'],
+  transformIgnorePatterns: ['node_modules/(?!(axios)/)'],
   moduleNameMapper: {
-    '^(\\.{1,2}/.*)\\.js$': '$1'
+    '^(\\.{1,2}/.*)\\.ts$': '$1',
   },
   testEnvironmentOptions: {
-    url: 'http://localhost'
+    url: 'http://localhost',
   },
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.cjs']
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.cjs'],
 };

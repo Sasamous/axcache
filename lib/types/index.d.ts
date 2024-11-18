@@ -24,6 +24,7 @@ export interface Axcache extends AxiosInstance {
   invalidateCache: (url: string, params?: Record<string, any>) => boolean;
   getCacheStats: () => AxcacheStats;
   generateCacheKey: (config: AxcacheRequestConfig) => string;
+  get: (url: string, config?: AxcacheRequestConfig) => Promise<AxiosResponse>;
 }
 
 export function createAxcache(options?: AxcacheConfig): Axcache;

@@ -1,7 +1,11 @@
 import createAxcache from '../../lib/axcache.js';
 import { jest, expect, describe, it, beforeEach } from '@jest/globals';
 import type { AxiosResponse } from 'axios';
-import type { Axcache, AxcacheConfig, AxcacheStats, AxcacheRequestConfig } from '../../lib/types';
+import type {
+  AxcacheConfig,
+  AxcacheStats,
+  AxcacheRequestConfig,
+} from '../../lib/types';
 
 describe('README.md Examples', () => {
   beforeEach(() => {
@@ -11,14 +15,18 @@ describe('README.md Examples', () => {
   describe('Basic Usage Example', () => {
     it('should demonstrate basic usage scenario', async () => {
       const api = createAxcache();
-      
+
       // First request - should be cached
-      const response: AxiosResponse = await api.get('https://jsonplaceholder.typicode.com/posts/1');
+      const response: AxiosResponse = await api.get(
+        'https://jsonplaceholder.typicode.com/posts/1'
+      );
       expect(response.status).toBe(200);
       expect(response.data).toBeDefined();
 
       // Second request - should use cache
-      const cachedResponse: AxiosResponse = await api.get('https://jsonplaceholder.typicode.com/posts/1');
+      const cachedResponse: AxiosResponse = await api.get(
+        'https://jsonplaceholder.typicode.com/posts/1'
+      );
       expect(cachedResponse.status).toBe(200);
       expect(cachedResponse.data).toEqual(response.data);
     });
@@ -40,11 +48,11 @@ describe('README.md Examples', () => {
         timeout: 5000,
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer test-token'
-        }
+          Authorization: 'Bearer test-token',
+        },
       };
 
-      const api= createAxcache(config);
+      const api = createAxcache(config);
 
       const response: AxiosResponse = await api.get('/posts/1');
       expect(response.status).toBe(200);
@@ -59,21 +67,26 @@ describe('README.md Examples', () => {
 
   describe('Custom Cache Duration Example', () => {
     it('should handle different TTL configurations', async () => {
-      const api= createAxcache({ stdTTL: 3600 });
+      const api = createAxcache({ stdTTL: 3600 });
 
       const config: AxcacheRequestConfig = {
-        ttl: 0.1 // 100ms
+        ttl: 0.1, // 100ms
       };
 
       // Test short TTL
-      const shortLivedResponse: AxiosResponse = await api.get('https://jsonplaceholder.typicode.com/posts/1', config);
+      const shortLivedResponse: AxiosResponse = await api.get(
+        'https://jsonplaceholder.typicode.com/posts/1',
+        config
+      );
       expect(shortLivedResponse.status).toBe(200);
 
       // Wait for cache expiration
-      await new Promise(r => setTimeout(r, 150));
+      await new Promise((r) => setTimeout(r, 150));
 
       // Should be a fresh request
-      const newResponse: AxiosResponse = await api.get('https://jsonplaceholder.typicode.com/posts/1');
+      const newResponse: AxiosResponse = await api.get(
+        'https://jsonplaceholder.typicode.com/posts/1'
+      );
       expect(newResponse.status).toBe(200);
     });
   });
@@ -84,11 +97,11 @@ describe('README.md Examples', () => {
       const onCacheMiss = jest.fn();
       const onCacheWrite = jest.fn();
 
-      const api= createAxcache({
+      const api = createAxcache({
         maxSizeMB: 10,
         onCacheHit,
         onCacheMiss,
-        onCacheWrite
+        onCacheWrite,
       });
 
       // Initial request
@@ -112,13 +125,15 @@ describe('README.md Examples', () => {
       const api = createAxcache({
         baseURL: 'https://jsonplaceholder.typicode.com',
         headers: {
-          'Authorization': 'Bearer test-token'
-        }
+          Authorization: 'Bearer test-token',
+        },
       });
 
       const response: AxiosResponse = await api.get('/posts/1');
       expect(response.status).toBe(200);
-      expect(response.config.headers['Authorization']).toBe('Bearer test-token');
+      expect(response.config.headers['Authorization']).toBe(
+        'Bearer test-token'
+      );
     });
   });
 
@@ -134,7 +149,9 @@ describe('README.md Examples', () => {
       expect(stats1.entries).toBe(2);
 
       // Invalidate specific cache entry
-      const wasInvalidated: boolean = api.invalidateCache('https://jsonplaceholder.typicode.com/posts/1');
+      const wasInvalidated: boolean = api.invalidateCache(
+        'https://jsonplaceholder.typicode.com/posts/1'
+      );
       expect(wasInvalidated).toBe(true);
 
       const stats2: AxcacheStats = api.getCacheStats();
@@ -145,7 +162,7 @@ describe('README.md Examples', () => {
   describe('Memory Management Example', () => {
     it('should handle memory limits correctly', async () => {
       const api = createAxcache({
-        maxSizeMB: 0.1 // Very small cache (100KB)
+        maxSizeMB: 0.1, // Very small cache (100KB)
       });
 
       // Make multiple requests to test memory limits
@@ -174,22 +191,15 @@ describe('README.md Examples', () => {
 
   describe('Request Configuration Example', () => {
     it('should handle various request configurations', async () => {
-      interface PostData {
-        id: number;
-        title: string;
-        body: string;
-        userId: number;
-      }
-
       const api = createAxcache({
-        baseURL: 'https://jsonplaceholder.typicode.com'
+        baseURL: 'https://jsonplaceholder.typicode.com',
       });
 
-      const response: AxiosResponse<PostData> = await api.get<PostData>('/posts/1', {
+      const response = await api.get('/posts/1', {
         params: { _format: 'json' },
         headers: {
-          'Accept': 'application/json'
-        }
+          Accept: 'application/json',
+        },
       });
 
       expect(response.status).toBe(200);
@@ -203,13 +213,18 @@ describe('README.md Examples', () => {
       const api = createAxcache();
 
       // Initial request (cached)
-      const initialResponse: AxiosResponse = await api.get('https://jsonplaceholder.typicode.com/posts/1');
+      const initialResponse: AxiosResponse = await api.get(
+        'https://jsonplaceholder.typicode.com/posts/1'
+      );
       expect(initialResponse.status).toBe(200);
 
       // Force a fresh request, ignoring cache
-      const freshResponse: AxiosResponse = await api.get('https://jsonplaceholder.typicode.com/posts/1', {
-        forceRefresh: true
-      } as AxcacheRequestConfig);
+      const freshResponse: AxiosResponse = await api.get(
+        'https://jsonplaceholder.typicode.com/posts/1',
+        {
+          forceRefresh: true,
+        } as AxcacheRequestConfig
+      );
       expect(freshResponse.status).toBe(200);
     });
   });
@@ -217,7 +232,7 @@ describe('README.md Examples', () => {
   describe('Cache Monitoring Intervals Example', () => {
     it('should track cache statistics over time', async () => {
       const api = createAxcache({
-        maxSizeMB: 10
+        maxSizeMB: 10,
       });
 
       // Make some requests to populate cache
@@ -235,14 +250,14 @@ describe('README.md Examples', () => {
   describe('Multiple Requests Example', () => {
     it('should handle multiple requests with different parameters', async () => {
       const api = createAxcache({
-        baseURL: 'https://jsonplaceholder.typicode.com'
+        baseURL: 'https://jsonplaceholder.typicode.com',
       });
 
       // Make parallel requests
       const [users, posts, comments] = await Promise.all([
         api.get('/users'),
         api.get('/posts'),
-        api.get('/comments')
+        api.get('/comments'),
       ]);
 
       expect(users.status).toBe(200);
@@ -258,12 +273,15 @@ describe('README.md Examples', () => {
     it('should handle requests with query parameters', async () => {
       const api = createAxcache();
 
-      const response: AxiosResponse = await api.get('https://jsonplaceholder.typicode.com/posts', {
-        params: {
-          userId: 1,
-          _limit: 5
+      const response: AxiosResponse = await api.get(
+        'https://jsonplaceholder.typicode.com/posts',
+        {
+          params: {
+            userId: 1,
+            _limit: 5,
+          },
         }
-      });
+      );
 
       expect(response.status).toBe(200);
       expect(Array.isArray(response.data)).toBe(true);
@@ -277,15 +295,15 @@ describe('README.md Examples', () => {
 
       // Make requests with different query parameters
       await api.get('https://jsonplaceholder.typicode.com/posts', {
-        params: { userId: 1 }
+        params: { userId: 1 },
       });
 
       await api.get('https://jsonplaceholder.typicode.com/posts', {
-        params: { userId: 2 }
+        params: { userId: 2 },
       });
 
       const stats: AxcacheStats = api.getCacheStats();
       expect(stats.entries).toBe(2); // Should be two different cache entries
     });
   });
-}); 
+});

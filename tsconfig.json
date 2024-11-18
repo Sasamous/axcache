@@ -11,7 +11,8 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
-    "declarationDir": "./dist/types"
+    "declarationDir": "./dist/types",
+    "allowJs": true
   },
   "include": [
     "lib",
